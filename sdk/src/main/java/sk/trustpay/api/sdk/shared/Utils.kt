@@ -22,6 +22,7 @@ import java.security.cert.X509Certificate
 import javax.net.ssl.SSLContext
 import javax.net.ssl.X509TrustManager
 
+
 internal object JsonHelper {
     private val gson: Gson = GsonBuilder()
         .setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE)
@@ -33,7 +34,6 @@ internal object JsonHelper {
     }
 
     fun <T> fromJson(json: String, classOfT: Class<T>): T {
-        // jaskhdjashdkjashdkjashdkajshdkjshdkhaksdjh
         return gson.fromJson(json, classOfT)
     }
 }
@@ -92,24 +92,57 @@ internal object HttpUtil {
         }
     }
 }
+/*
+internal object FileUtil {
+    @Throws(IOException::class)
+    fun copyFile(source: File?, dest: File?) {
+        var input: InputStream? = null
+        var output: OutputStream? = null
+        try {
+            input = FileInputStream(source)
+            output = FileOutputStream(dest)
 
+            // 1024 bytes is common
+            val buffer = ByteArray(1024)
+            var length: Int
+            while (input.read(buffer).also { length = it } > 0) {
+                output.write(buffer, 0, length)
+            }
+        } finally {
+            input?.close()
+            output?.close()
+        }
+    }
+}*/
+/*
+class PermissionRequestHandler(private val activity: FragmentActivity) {
+    private val permissionResultLiveData = MutableLiveData<Pair<Int, Boolean>>()
+
+    fun getPermissionResultObserver(): LiveData<Pair<Int, Boolean>> = permissionResultLiveData
+
+    fun requestPermissions(permissions: Array<String>, requestCode: Int) {
+        ActivityCompat.requestPermissions(activity, permissions, requestCode)
+    }
+
+    fun onRequestPermissionsResult(requestCode: Int, grantResults: IntArray) {
+        val isGranted = grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }
+        permissionResultLiveData.value = Pair(requestCode, isGranted)
+    }
+}*/
 
 @SuppressLint("CustomX509TrustManager")
 class CustomTrustManager : X509TrustManager {
     @SuppressLint("TrustAllX509TrustManager")
     @Throws(CertificateException::class)
     override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {
-        // Implement client certificate validation if needed
     }
 
     @SuppressLint("TrustAllX509TrustManager")
     @Throws(CertificateException::class)
     override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {
-        // Implement server certificate validation
-        // You can use a custom trust store or other logic here
     }
 
     override fun getAcceptedIssuers(): Array<X509Certificate> {
-        return arrayOf<X509Certificate>() // Return an empty array or null
+        return arrayOf()
     }
 }

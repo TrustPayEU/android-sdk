@@ -56,13 +56,13 @@ publishing {
         create<MavenPublication>("ReleaseAar") {
             groupId = "sk.trustpay.api"
             artifactId = "sdk-release"
-            version = "0.1.0"
+            version = "0.1.1"
             afterEvaluate { artifact(tasks.getByName("bundleReleaseAar")) }
         }
         create<MavenPublication>("DebugAar") {
             groupId = "sk.trustpay.api"
             artifactId = "sdk-debug"
-            version = "0.1.0"
+            version = "0.1.1"
 
             afterEvaluate {artifact(tasks.getByName("bundleDebugAar")) }
         }
@@ -71,9 +71,9 @@ publishing {
 
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("androidx.browser:browser:1.7.0")
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.browser:browser:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.material:material:1.11.0")

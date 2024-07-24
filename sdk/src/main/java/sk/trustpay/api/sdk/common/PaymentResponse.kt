@@ -21,8 +21,7 @@ open class PaymentResponse : BaseResponse() {
         webViewIntent.putExtra("CATCH_URL", redirectUrl)
         webViewIntent.putExtra("REDIRECT_ACTIVITY_CLASS", redirectActivityClassName)
         webViewIntent.putExtra("REDIRECT_ACTIVITY_PACKAGE", redirectActivityPackageName)
-        webViewIntent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-        webViewIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        webViewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         context.startActivity(webViewIntent)
     }
 
@@ -63,8 +62,7 @@ open class PaymentResponse : BaseResponse() {
             .setUrlBarHidingEnabled(true)
             .setShowTitle(true)
             .build()
-        customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY)
-        customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        customTabsIntent.intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         customTabsIntent.launchUrl(context, Uri.parse(this.gatewayUrl))
     }
 
