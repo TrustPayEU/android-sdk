@@ -135,6 +135,19 @@ internal class WebViewActivity : AppCompatActivity() {
         }
         webView.webViewClient = object : WebViewClient() {
             override fun onPageFinished(view: WebView?, url: String?) {
+                webView.loadUrl("""javascript:(function() { 
+                    navigator.permissions = { 
+                        query:function(opts) { 
+                            return Promise.resolve({state:opts.name === 'clipboard-write' 
+                                ? 'granted'
+                                : 'denied'
+                            });
+                        }
+                    };
+                    clipboard.writeText = (e) => { 
+                        return Android.copyToClipboard(e);
+                    };
+                })();""".trimIndent())
                 if(!webBrowserLoaded){
                     progressDialog.dismiss()
                     webBrowserLoaded = true
@@ -160,7 +173,7 @@ internal class WebViewActivity : AppCompatActivity() {
                 }
             }
         }
-
+        webView.addJavascriptInterface(WebAppInterface(this), "Android")
         webView.clearCache(true)
         webView.clearHistory()
         webView.clearFormData()
@@ -285,3 +298,4 @@ internal class WebViewActivity : AppCompatActivity() {
     }
 
 }
+

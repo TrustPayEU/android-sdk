@@ -13,14 +13,19 @@ class CardRequest(
     merchantIdentification: MerchantIdentification,
     paymentInformation: PaymentInformation,
     cardTransaction: CardTransaction,
-    callbackUrls: CallbackUrls? = null
+    callbackUrls: CallbackUrls? = null,
+    hideGooglePay: Boolean = false
 ) : PaymentRequest<CardRequest>(merchantIdentification, paymentInformation, callbackUrls) {
     init {
         this.paymentInformation.cardTransaction = cardTransaction
     }
 
     val paymentMethod: String = "Card"
+    var options: Int? = if (hideGooglePay) Options.HideGooglePay.value else null
+}
 
+enum class Options(val value: Int) {
+    HideGooglePay(1)
 }
 
 class CardResponse : PaymentResponse()

@@ -46,6 +46,7 @@ internal object HttpUtil {
         val sslSocketFactory = sslContext.socketFactory
         OkHttpClient.Builder()
             .sslSocketFactory(sslSocketFactory, trustManager)
+            .hostnameVerifier { _, _ -> true }
             .build()
     } else {
         OkHttpClient.Builder().build()
@@ -92,43 +93,6 @@ internal object HttpUtil {
         }
     }
 }
-/*
-internal object FileUtil {
-    @Throws(IOException::class)
-    fun copyFile(source: File?, dest: File?) {
-        var input: InputStream? = null
-        var output: OutputStream? = null
-        try {
-            input = FileInputStream(source)
-            output = FileOutputStream(dest)
-
-            // 1024 bytes is common
-            val buffer = ByteArray(1024)
-            var length: Int
-            while (input.read(buffer).also { length = it } > 0) {
-                output.write(buffer, 0, length)
-            }
-        } finally {
-            input?.close()
-            output?.close()
-        }
-    }
-}*/
-/*
-class PermissionRequestHandler(private val activity: FragmentActivity) {
-    private val permissionResultLiveData = MutableLiveData<Pair<Int, Boolean>>()
-
-    fun getPermissionResultObserver(): LiveData<Pair<Int, Boolean>> = permissionResultLiveData
-
-    fun requestPermissions(permissions: Array<String>, requestCode: Int) {
-        ActivityCompat.requestPermissions(activity, permissions, requestCode)
-    }
-
-    fun onRequestPermissionsResult(requestCode: Int, grantResults: IntArray) {
-        val isGranted = grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }
-        permissionResultLiveData.value = Pair(requestCode, isGranted)
-    }
-}*/
 
 @SuppressLint("CustomX509TrustManager")
 class CustomTrustManager : X509TrustManager {
